@@ -1,27 +1,38 @@
-name: Create Template Branch
+name: Deploy to GitHub Pages
 
 on:
   push:
-    tags:
-      - 'template-v*'
+    branches: ["main"]
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  create-template-branch:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: main
 
-      - name: Create template branch
-        run: |
-          git checkout -b template
-          
-          rm -rf content
-          rm static/lore
-          rm -f README.md
-          
-          git add .
-          git commit -m "Create template from ${{ github.ref_name }}"
-          git push origin template --force
+      - name: Add CNAME
+        run: echo "santapresser.com" > ./public/CNAME
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'public'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
