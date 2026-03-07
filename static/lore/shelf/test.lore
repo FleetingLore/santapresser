@@ -1,0 +1,9 @@
+a = b
++ 文件夹
+  zhihu = zhihu.com
+  + 子文件夹
+    。。。
+    a = b
+    baidu = baidu.com
+
+  entry = :a:b:c:d

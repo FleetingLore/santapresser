@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | {{ config.title }}</title>
+    <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
+    <!-- KaTeX CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV" crossorigin="anonymous">
+    <!-- KaTeX JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8" crossorigin="anonymous"></script>
+    <!-- KaTeX auto-render extension -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                // 自定义分隔符
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "\\[", right: "\\]", display: true}
+                ],
+                // 忽略某些元素
+                ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+                // 忽略某些类
+                ignoredClasses: ["no-math"],
+                // 不抛出错误
+                throwOnError: false,
+                // 不严格模式，允许$前后没有空格
+                strict: false
+            });
+        });
+    </script>
+</head>
+<body class="{{ config.extra.theme | default(value='light') }}-theme">
+<main id="lore-content" class="lore-content">
+    <h1 class="title">{{ page.title }}</h1>
+    <p class="subtitle"><strong>{{ page.date }}</strong></p>
+    {{ page.content | safe }}
+</main>
+</body>
+</html>

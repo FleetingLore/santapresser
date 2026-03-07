@@ -1,0 +1,24 @@
+# :root
+
++ Fleeting
+  课程表      = :课程表
+  编程参考资料 = :目录:编程_
+  一些数学课   = :目录:磁某的数学课_
+  日记 = :日记_
+
+---
+
++ 开发
+  2026 Logs > /logs/2026
+
+---
+
++ 测试专区
+  Markdown文章测试 > /blog/test/
+  新测试文章 > /blog/test-article/
+  嵌套文章 > /blog/nested-test/
+  logs测试 > /logs/test-log/
+  page模板测试 > /test-page/
+  HTML资源 = /test.html
+  GitHub | https://github.com
+  Google | https://www.google.com

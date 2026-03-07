@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>路径调试</title>
+    <script>
+        function testPath(path) {
+            const isMd = path.match(/\/[^\/]+\/$/) && !path.startsWith('/lore/');
+            console.log(`测试路径: "${path}" -> ${isMd ? '是' : '否'} Markdown路径`);
+            return Boolean(isMd);
+        }
+
+        // 测试各种路径
+        const testPaths = [
+            '/',
+            '/index.html',
+            '/blog/',
+            '/test/',
+            '/blog/test/',
+            '/lore/something/',
+            '/tests.html',
+            '/blog/test.md',
+            '/blog/test',
+            '/2024/01/post/'
+        ];
+
+        console.log('=== 路径测试 ===');
+        testPaths.forEach(testPath);
+    </script>
+</head>
+<body>
+<h1>路径调试页面</h1>
+<p>打开控制台查看测试结果</p>
+</body>
+</html>

@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main id="daily-content" class="daily-content">
+    <header class="daily-header">
+        <h1 class="daily-title">{{ page.title }}</h1>
+        <div class="daily-meta">
+            <time class="daily-date">{{ page.date | date(format="%Y %m %d") }}</time>
+            <span class="daily-weekday">{{ page.date | date(format="%A") }}</span>
+        </div>
+    </header>
+    
+    <div class="daily-content-body">
+        {{ page.content | safe }}
+    </div>
+</main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 数学公式渲染
+        if (typeof renderMathInElement === 'function') {
+            renderMathInElement(document.body, {
+                // 自定义分隔符
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\\\(", right: "\\\\)", display: false},
+                    {left: "\\\\[", right: "\\\\]", display: true}
+                ],
+                // 忽略某些元素
+                ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+                // 忽略某些类
+                ignoredClasses: ["no-math"],
+                // 不抛出错误
+                throwOnError: false
+            });
+        }
+        
+        // 处理特殊渲染：+ 和 - 开头的行
+        function renderChecklist() {
+            const contentBody = document.querySelector('.daily-content-body');
+            if (!contentBody) return;
+            
+            // 获取所有的段落和列表项
+            const elements = contentBody.querySelectorAll('p, li');
+            
+            elements.forEach(element => {
+                const text = element.textContent.trim();
+                
+                // 处理以 + 开头的行（已勾选）
+                if (text.startsWith('+ ')) {
+                    const content = text.substring(2);
+                    element.innerHTML = `<span class="checklist-item checklist-checked">✓ ${content}</span>`;
+                    element.classList.add('checklist-line');
+                }
+                // 处理以 - 开头的行（未勾选）
+                else if (text.startsWith('- ')) {
+                    const content = text.substring(2);
+                    element.innerHTML = `<span class="checklist-item checklist-unchecked">☐ ${content}</span>`;
+                    element.classList.add('checklist-line');
+                }
+            });
+        }
+        
+        // 执行渲染
+        renderChecklist();
+    });
+</script>
+
+<style>
+    /* 使用与 static/style.css 相同的 CSS 变量 */
+    :root {
+        --bg: #0A0C0C;        /* 背景 */
+        --text: #E6EDF0;      /* 主要文本 */
+        --text-muted: #c1d5f8; /* 次要文本 */
+        --primary: #68c7c7;    /* 链接/强调色 */
+        --error: #E67E7E;      /* 错误 */
+        --success: #68c7c7;    /* 成功/勾选色 */
+        --muted: #8a9ba8;      /* 未勾选/禁用色 */
+    }
+    
+    .daily-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        line-height: 1.6;
+        color: var(--text);
+        background: var(--bg);
+    }
+    
+    .daily-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--text-muted);
+    }
+    
+    .daily-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem 0;
+        color: var(--primary);
+    }
+    
+    .daily-meta {
+        display: flex;
+        gap: 1rem;
+        font-size: 1rem;
+        color: var(--text-muted);
+    }
+    
+    .daily-date {
+        font-weight: 600;
+    }
+    
+    .daily-content-body {
+        font-size: 1.1rem;
+        color: var(--text-muted);
+    }
+    
+    .daily-content-body h2 {
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+    
+    .daily-content-body h3 {
+        font-size: 1.3rem;
+        margin-top: 1.25rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-muted);
+        font-weight: 600;
+    }
+    
+    .daily-content-body p {
+        margin-bottom: 1.2rem;
+        color: var(--text);
+    }
+    
+    .daily-content-body strong {
+        color: var(--text);
+        font-weight: 600;
+        font-size: 1.3rem;
+        display: block;
+    }
+    
+    .daily-content-body ul, 
+    .daily-content-body ol {
+        margin-bottom: 1.2rem;
+        padding-left: 1.5rem;
+        color: var(--text);
+    }
+    
+    .daily-content-body li {
+        margin-bottom: 0.5rem;
+    }
+    
+    .daily-content-body blockquote {
+        border-left: 3px solid var(--primary);
+        padding-left: 1rem;
+        margin: 1.2rem 0;
+        font-style: italic;
+        color: var(--text-muted);
+        background-color: rgba(104, 199, 199, 0.1);
+        padding: 0.8rem 1rem;
+        border-radius: 0 4px 4px 0;
+    }
+    
+    .daily-content-body code {
+        background-color: rgba(104, 199, 199, 0.1);
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        font-size: 0.9em;
+        color: var(--text);
+    }
+    
+    .daily-content-body pre {
+        background-color: rgba(104, 199, 199, 0.1);
+        padding: 1rem;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin-bottom: 1.2rem;
+        border: 1px solid rgba(104, 199, 199, 0.2);
+    }
+    
+    .daily-content-body a {
+        color: var(--primary);
+        text-decoration: none;
+    }
+    
+    .daily-content-body a:hover {
+        opacity: 0.8;
+    }
+    
+    /* 清单项样式 */
+    .checklist-line {
+        margin: 0.8rem 0;
+        padding-left: 0;
+        list-style: none;
+    }
+    
+    .checklist-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 0.3rem 0;
+    }
+    
+    .checklist-checked {
+        color: var(--success);
+    }
+    
+    .checklist-checked::before {
+        content: "✓";
+        font-weight: bold;
+        color: var(--success);
+        margin-right: 0.5rem;
+    }
+    
+    .checklist-unchecked {
+        color: var(--muted);
+    }
+    
+    .checklist-unchecked::before {
+        content: "x";
+        color: var(--muted);
+        margin-right: 0.5rem;
+    }
+    
+    @media (max-width: 768px) {
+        .daily-content {
+            padding: 1rem;
+        }
+        
+        .daily-title {
+            font-size: 1.75rem;
+        }
+        
+        .daily-meta {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+    }
+</style>
+{% endblock %}

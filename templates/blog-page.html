@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main id="lore-content" class="lore-content">
+    <h1 class="title">{{ page.title }}</h1>
+    <p class="subtitle"><strong>{{ page.date }}</strong></p>
+    {{ page.content | safe }}
+</main>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        if (typeof renderMathInElement === 'function') {
+            renderMathInElement(document.body, {
+                // 自定义分隔符
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false},
+                    {left: "\\(", right: "\\)", display: false},
+                    {left: "\\[", right: "\\]", display: true}
+                ],
+                // 忽略某些元素
+                ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+                // 忽略某些类
+                ignoredClasses: ["no-math"],
+                // 不抛出错误
+                throwOnError: false
+            });
+        }
+    });
+</script>
+{% endblock %}

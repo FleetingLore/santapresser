@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>测试 HTML</title>
+    <link rel="stylesheet" href="{{ get_url(path='style.css') }}">
+</head>
+<body class="{{ config.extra.theme | default(value='light') }}-theme">
+<main class="lore-content">
+    <h1>测试 HTML 文件</h1>
+    <p>这是一个用于测试资源链接的 HTML 文件。</p>
+    <p>它应该在新标签页中打开。</p>
+    <p><a href="javascript:history.back()">返回</a></p>
+</main>
+</body>
+</html>
