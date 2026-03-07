@@ -1,0 +1,17 @@
+# :zh-cn:examples:example_lore
+
++ example_lore
+
+  返回主页 = :zh-cn
+
+  返回上级 = :zh-cn:examples_
+
+  :zh-cn:examples:example_lore
+
+---
+
+语言设置
+
+Go to this page in English = :en-us:examples:example_lore
+
+Go to pages in English = :en-us
