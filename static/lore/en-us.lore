@@ -5,7 +5,7 @@ Santa Presser
 example lore domain = :en-us:examples:example_lore
 example lore category = :en-us:examples_
 
-example html | /en-us/example.html
+example html | example.html
 
 example markdown > /en-us/example
 

@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 Allow: /
-Sitemap: https://santapresser.com/sitemap.xml
+Sitemap: https://santapresser.ducia.site/sitemap.xml
